@@ -1,5 +1,5 @@
 options:
-  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Logging
+  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Loggingj
 
 steps:
   # Step 1: Build the Docker image
