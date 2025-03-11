@@ -1,26 +1,24 @@
+options:
+  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Logging (if you don't want to store logs in a bucket)
+
+# Specify the logs bucket (uncomment and use your bucket's name)
+ logs_bucket: gs://samaybucket/
+
 steps:
-  # Step 1: Build the Docker image with Terraform
+  # Your build steps
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/terraform:latest', '.']
-
-  # Step 2: Push the Docker image to Container Registry
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/terraform:$TAG', '.']
+  
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/terraform:latest']
+    args: ['push', 'gcr.io/$PROJECT_ID/terraform:$TAG']
 
-  # Step 3: Initialize Terraform
-  - name: 'gcr.io/$PROJECT_ID/terraform:latest'
+  - name: 'hashicorp/terraform'
     entrypoint: 'terraform'
-    args:
-      - 'init'
-      - '-backend-config=backend.hcl'  # Optional: Add this if you use remote backend like GCS.
+    args: ['init']
 
-  # Step 4: Apply Terraform configuration (optional)
-  - name: 'gcr.io/$PROJECT_ID/terraform:latest'
+  - name: 'hashicorp/terraform'
     entrypoint: 'terraform'
-    args:
-      - 'apply'
-      - '-auto-approve'  # Automatically approve any changes Terraform proposes
+    args: ['apply', '-auto-approve']
 
-# Specify the image to be built and pushed
 images:
-  - 'gcr.io/$PROJECT_ID/terraform:latest'
+  - 'gcr.io/$PROJECT_ID/terraform:$TAG'
