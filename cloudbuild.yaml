@@ -1,6 +1,5 @@
 options:
-  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Logging (if you don't want to store logs in a bucket)
-  logs_bucket: gs://samaybucket/  # Specify the logs bucket (make sure this is correct and accessible)
+  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Logging (you can remove this if you want to use Cloud Storage)
 
 steps:
   # Step 1: Build the Docker image
