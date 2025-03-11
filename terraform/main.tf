@@ -5,24 +5,21 @@ provider "google" {
   region      = "us-central1"  # Update to your preferred region
 }
 
-resource "google_compute_instance" "my_vm" {
-  name         = var.vm_name
-  machine_type = var.machine_type
-  zone         = var.zone
+resource "google_compute_instance" "my-vm" {
+  name         = "my-instance"
+  machine_type = "e2-medium"  # Use the latest VM type available in GCP
+  zone         = "us-central1-a"  # Change to your preferred zone
 
   boot_disk {
     initialize_params {
-      # Use image family instead of specific image version
-      image = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"  # Image family for Ubuntu 20.04 LTS
+      image = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"  # Debian 11 is the latest stable version
     }
   }
 
   network_interface {
     network = "default"
     access_config {
-      // This block is required for creating a public IP
+      // Include this block to assign an external IP
     }
   }
-
-  tags = ["web-server"]
 }
