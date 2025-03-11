@@ -1,27 +1,28 @@
+# Use the latest provider for Google Cloud
 provider "google" {
-  project = "your-project-id"
-  region  = "us-central1"
-  zone    = "us-central1-a"
+  #credentials = file("service-account-key.json")  # Specify the path to your service account key
+  project     = "fine-arbor-452306-t2"  # Replace with your actual project ID
+  region      = "us-central1"  # Update to your preferred region
 }
 
-resource "google_compute_instance" "vm_instance" {
-  name         = "my-terraform-vm"
-  machine_type = "n1-standard-1"
-  
+resource "google_compute_instance" "my_vm" {
+  name         = var.vm_name
+  machine_type = var.machine_type
+  zone         = var.zone
+
   boot_disk {
     initialize_params {
-      image = "projects/debian-cloud/global/images/debian-9-stretch-v20190710"
+      # Use image family instead of specific image version
+      image = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"  # Image family for Ubuntu 20.04 LTS
     }
   }
 
   network_interface {
     network = "default"
     access_config {
-      # This will create an external IP address
+      // This block is required for creating a public IP
     }
   }
-}
 
-output "instance_ip" {
-  value = google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip
+  tags = ["web-server"]
 }
