@@ -1,24 +1,42 @@
-options:
-  logging: CLOUD_LOGGING_ONLY  # Log to Google Cloud Loggingg
-
 steps:
-  # Step 1: Build the Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/terraform:$SHORT_SHA', '.']
-
-  # Step 2: Push the Docker image to Google Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/terraform:$SHORT_SHA']
-
-  # Step 3: Run Terraform Init
-  - name: 'hashicorp/terraform'
-    entrypoint: 'terraform'
-    args: ['init']
-
-  # Step 4: Run Terraform Apply (this creates the VM or other resources)
-  - name: 'hashicorp/terraform'
-    entrypoint: 'terraform'
-    args: ['apply', '-auto-approve']
-
-images:
-  - 'gcr.io/$PROJECT_ID/terraform:$SHORT_SHA'
+  - id: 'branch name'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+    - '-c'
+    - |
+        echo "$BRANCH_NAME"
+ 
+  - id: 'tf init'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+          ls
+          cd config
+          terraform init
+ 
+  - id: 'tf plan'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+          cd config
+          terraform init
+          terraform plan
+ 
+  - id: 'tf apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+            cd config
+            terraform apply --auto-approve
+              
+         
+ 
+options:
+  logging: CLOUD_LOGGING_ONLY
