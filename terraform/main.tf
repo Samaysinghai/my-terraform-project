@@ -1,5 +1,5 @@
 module "vm" {
-  for_each = toset([for i in range(var.vm_count) : "vm-${i + 1}"])  # Convert to a set of strings
+  # for_each = toset([for i in range(var.vm_count) : "vm-${i + 1}"])  # Convert to a set of strings
 
   source    = "./modules/vm"
   project_id = var.project_id

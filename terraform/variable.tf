@@ -12,9 +12,11 @@ variable "zone" {
   description = "The zone within the region where VMs will be created."
   type        = string
 }
-
-variable "vm_count" {
-  description = "Number of VMs to create."
-  type        = number
-  default     = 10
+variable "machine_type" {
+  description = "The GCP project ID."
+  type        = string
+}
+variable "image" {
+  description = "The GCP project ID."
+  type        = string
 }
