@@ -1,5 +1,6 @@
 module "vm" {
-  # for_each = toset([for i in range(var.vm_count) : "vm-${i + 1}"])  # Convert to a set of strings
+  
+  
   source    = "./modules/vm"
   image = var.image
   machine_type = var.machine_type
