@@ -14,7 +14,7 @@ steps:
       - '-c'
       - |
           ls
-          cd config
+          cd terraform
           terraform init
  
   - id: 'tf plan'
@@ -23,7 +23,7 @@ steps:
     args:
       - '-c'
       - |
-          cd config
+          cd terraform
           terraform init
           terraform plan
  
@@ -33,7 +33,7 @@ steps:
     args:
       - '-c'
       - |
-            cd config
+            cd terraform
             terraform apply --auto-approve
               
          
