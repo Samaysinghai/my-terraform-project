@@ -20,3 +20,7 @@ variable "image" {
   description = "The GCP project ID."
   type        = string
 }
+variable "vm_name" {
+  description = "Name of the virtual machine."
+  type        = string
+}
