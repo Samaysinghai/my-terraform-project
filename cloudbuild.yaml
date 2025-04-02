@@ -34,7 +34,7 @@ steps:
       - |
           if [[ "$BRANCH_NAME" == "main" ]]; then
             echo "Branch is 'main', proceeding with terraform apply"
-            cd config
+            cd terraform
             terraform apply --auto-approve
             exit 0  
           else
