@@ -1,5 +1,4 @@
 provider "google" {
-project     = var.project_id
-region      = var.region
+project = "fine-arbor-452306-t2"
 }
 
