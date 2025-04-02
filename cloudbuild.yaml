@@ -24,7 +24,6 @@ steps:
       - '-c'
       - |
           cd terraform
-          terraform init
           terraform plan
  
   - id: 'tf apply'
@@ -33,8 +32,15 @@ steps:
     args:
       - '-c'
       - |
-            cd terraform
+          if [[ "$BRANCH_NAME" == "master" ]]; then
+            echo "Branch is 'master', proceeding with terraform apply"
+            cd config
             terraform apply --auto-approve
+            exit 0  
+          else
+            echo "Branch is not 'master', skipping terraform apply"          
+            exit 0
+          fi  
               
          
  

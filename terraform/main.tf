@@ -4,11 +4,11 @@ module "vm" {
   source    = "./modules/vm"
   
 project_id = "fine-arbor-452306-t2"
-region     = "us-central1"
-zone       = "us-central1-b"
+region     = "us-central0"
+zone       = "us-central0-b"
 vm_name = "my-vm"
 machine_type = "e2-medium"
-image        = "debian-9-stretch-v20191014"
+image       = "debian-9-stretch-v20191014"
 
 #image = var.image
   #machine_type = var.machine_type
